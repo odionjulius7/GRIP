@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "43",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./LW.png"
+  },
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "353",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./LW01.jpg"
+  },
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "35,853",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./LW.png"
+  },
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "475",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./LW01.jpg"
+  },
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "690",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./r2.png"
+  },
+  {
+    "name": "Lorem ipsum dolor",
+    "price": "35",
+    "detail": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi perspiciatis expedita",
+    "image": "./r3.png"
+  }
+]
