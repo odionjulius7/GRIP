@@ -55,34 +55,42 @@ const Login = () => {
   }, [user, isError, isSuccess, isLoading]);
   console.log(token);
   return (
-    <Row className="mt-5 one-row">
+    <Row
+      className="mt-5 one-row"
+      style={{
+        position: "relative !important",
+        margin: "50px auto !important",
+        height: "600px !important",
+        width: "100vw !important",
+      }}
+    >
       <Col span={12} offset={6}>
         <form
           onSubmit={formik.handleSubmit}
           className="paddings one-form flexCenter v-container gap-5"
-          // style={{
-          //   position: "absolute",
-          //   top: "50%",
-          //   left: "50%",
-          //   transform: "translate(-50%, 12%)",
-          //   width: "60%",
-          //   height: "auto",
-          //   backgroundColor: "#f0f0f0",
-          //   borderRadius: "10px",
-          //   boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",
-          //   padding: "2rem 0",
-          // }}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, 12%)",
+            width: "60%",
+            height: "auto",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.3)",
+            padding: "2rem 0",
+          }}
         >
           <div
             className="flexColStart v-right one-div"
-            // style={{
-            //   display: "flex",
-            //   flexDirection: "column",
-            //   width: "80%",
-            //   justifyContent: "center",
-            //   alignItems: "center",
-            //   padding: 0,
-            // }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "80%",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: 0,
+            }}
           >
             <span className="orangeText">Login</span>
 

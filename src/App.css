@@ -117,12 +117,12 @@ main::-webkit-scrollbar {
   width: 100vw;
 } */
 :where(.css-dev-only-do-not-override-1m62vyb).ant-row {
-  position: relative !important;
+  /* position: relative !important;
   margin: 50px auto !important;
   height: 600px !important;
-  width: 100vw !important;
+  width: 100vw !important; */
 }
-:where(.css-dev-only-do-not-override-1m62vyb).ant-row form {
+/* :where(.css-dev-only-do-not-override-1m62vyb).ant-row form {
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
@@ -141,7 +141,7 @@ main::-webkit-scrollbar {
   justify-content: center !important;
   align-items: center !important;
   padding: 0 !important;
-}
+} */
 
 :where(.css-dev-only-do-not-override-1m62vyb).ant-btn > a {
   color: currentColor;
