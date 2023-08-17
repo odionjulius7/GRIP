@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -14,6 +13,7 @@ import User from "./pages/User";
 import Post from "./pages/Post";
 import ApprovedPosts from "./pages/ApprovedPosts";
 
+import "./App.css";
 function App() {
   // role = ["super", "cell-L", "liaison-O", "regional-L"]
 
