@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Pie } from "@ant-design/plots";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersAggregate, resetState } from "../../features/Users/usersSlice";
 
 const PieChart = () => {
+  const usersAggreg = useSelector((state) => state.users.userAggregate);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getUsersAggregate());
+  }, []);
+
   const data = [
     {
       type: "Admins",
-      value: 7,
+      value: usersAggreg?.admins,
     },
     {
       type: "Creators",
-      value: 15,
+      value: usersAggreg?.creators,
     },
     {
       type: "Subscribers",
-      value: 40,
+      value: usersAggreg?.subscribers,
     },
-    // {
-    //   type: "D",
-    //   value: 15,
-    // },
-    // {
-    //   type: "E",
-    //   value: 10,
-    // },
-    // {
-    //   type: "F",
-    //   value: 5,
-    // },
   ];
   const config = {
     appendPadding: 10,
@@ -48,6 +46,10 @@ const PieChart = () => {
       },
     ],
   };
+
+  // const {}
+
+  // console.log(usersAggreg);
   return <Pie {...config} />;
 };
 

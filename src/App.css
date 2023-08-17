@@ -153,11 +153,45 @@ main::-webkit-scrollbar {
 :where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
   > .ant-menu.ant-menu-root.ant-menu-vertical {
   border-inline-end: 0px solid rgba(5, 5, 5, 0.06);
+  margin-top: 3rem;
+}
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu
+  .ant-menu-item
+  .ant-menu-item-icon,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu
+  .ant-menu-submenu-title
+  .ant-menu-item-icon {
+  font-size: 2rem !important;
+}
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
+  .ant-menu-item
+  > .ant-menu-title-content,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title
+  > .ant-menu-title-content {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark.ant-menu-inline
+  .ant-menu-item,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
+  > .ant-menu.ant-menu-inline
+  .ant-menu-item {
   margin-top: 1.8rem;
+  margin-bottom: 1.8rem;
 }
 
 .imgSvg {
   vertical-align: middle;
   width: 30px;
   height: 30px;
+}
+
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
+  .ant-menu-item,
+:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
+  .ant-menu-submenu-title {
+  margin-bottom: 1rem;
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {
   AiOutlineDashboard,
-  AiOutlineShoppingCart,
+  AiOutlineTeam,
   AiOutlineUser,
 } from "react-icons/ai";
 import { ToastContainer } from "react-toastify";
@@ -13,10 +13,8 @@ import { IoIosNotifications } from "react-icons/io";
 import { FaClipboardList } from "react-icons/fa";
 import { Dropdown, Layout, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 
-//
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
@@ -35,8 +33,17 @@ const MainLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <h2 className="text-white fs-5 text-center py-3 mb-0">
-            <span className="sm-logo">LW</span>
-            <span className="lg-logo">Loveworld - Cell</span>
+            <span className="sm-logo">GD</span>
+            <span
+              className="lg-logo"
+              style={{
+                letterSpacing: "1rem",
+                fontSize: "2rem",
+                fontWeight: "900",
+              }}
+            >
+              GRIP
+            </span>
           </h2>
         </div>
 
@@ -53,30 +60,47 @@ const MainLayout = () => {
             {
               key: "",
               icon: <AiOutlineDashboard className="fs-4" />,
-              label: "Dashboard S",
+              label: "Dashboard",
             },
             {
-              key: "report",
-              icon: <AiOutlineShoppingCart className="fs-4" />,
-              label: "Reports",
+              key: "Users",
+              icon: <AiOutlineUser className="fs-4" />,
+              label: "Users",
               children: [
                 {
                   key: "all-users",
-                  icon: <AiOutlineShoppingCart className="fs-4" />,
-                  label: "Users",
+                  icon: <AiOutlineTeam className="fs-4" />,
+                  label: "All Users",
                 },
                 {
                   key: "all-creators",
-                  icon: <AiOutlineShoppingCart className="fs-4" />,
+                  icon: <AiOutlineTeam className="fs-4" />,
                   label: "Creators",
                 },
               ],
             },
             {
-              key: "Posts",
+              key: "posts",
               icon: <FaClipboardList className="fs-4" />,
               label: "All Posts",
+              children: [
+                {
+                  key: "posts",
+                  icon: <FaClipboardList className="fs-4" />,
+                  label: "Unapproved",
+                },
+                {
+                  key: "appoved-posts",
+                  icon: <FaClipboardList className="fs-4" />,
+                  label: "Approved",
+                },
+              ],
             },
+            // {
+            //   key: "Posts",
+            //   icon: <FaClipboardList className="fs-4" />,
+            //   label: "All Posts",
+            // },
           ]}
         />
       </Sider>
@@ -117,8 +141,8 @@ const MainLayout = () => {
                     />
                   </div>
                   <div>
-                    <h5 className="mb-0">Julius</h5>
-                    <p className="mb-0">odionjulius7@gmail.com</p>
+                    {/* <h5 className="mb-0">Julius</h5> */}
+                    <h5 className="mb-0">odionjulius7@gmail.com</h5>
                   </div>
                 </div>
               </Dropdown>

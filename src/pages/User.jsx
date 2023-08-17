@@ -1,13 +1,37 @@
 import { Button, Card } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 
 import SVG from "../IMG/SVGImg.png";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserRole, getAUser } from "../features/Users/usersSlice";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const User = () => {
+  const dispatch = useDispatch();
   const [creator, setCreator] = useState(false);
   const [size, setSize] = useState("large");
   const [size1, setSize1] = useState("small");
+  const userState = useSelector((state) => state.users);
+
+  const { isSuccess, isError, isLoading, user, updatedRole } = userState;
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (isSuccess && updatedRole) {
+      toast.success("Role Updated Successfully!");
+    }
+    if (isError) {
+      toast.error("Something Went Wrong!");
+    }
+  }, [isSuccess, isError, isLoading]);
+
+  useEffect(() => {
+    dispatch(getAUser(id));
+  }, [id, updatedRole]);
+
   return (
     <div>
       <div className="row">
@@ -32,44 +56,50 @@ const User = () => {
                     width: "100%",
                   }}
                 />
-                <h5>JonDeo.1 </h5>
+                <h5>{user?.username}</h5>
               </div>
-              {creator && (
+              {user?.role === "creator" && (
                 <div className="col-6">
                   <h4>Personal Information</h4>
                   <div className="">
                     <p className="col">
                       <h6 style={{ padding: "0", margin: "0" }}>Full Name :</h6>{" "}
-                      Jon Doe
+                      {user?.username}
                     </p>
                     <p className="col">
                       <h6 style={{ padding: "0", margin: "0" }}>Phone :</h6>{" "}
-                      0987654321
+                      {user?.phone}
                     </p>
                     <p className="col">
-                      <h6 style={{ padding: "0", margin: "0" }}>Bio :</h6> God
-                      is alive
+                      <h6 style={{ padding: "0", margin: "0" }}>Email :</h6>{" "}
+                      {user?.email}
                     </p>
                   </div>
                 </div>
               )}
             </div>
           </Card>
-          <h6 className="ml-5 mt-2">User | Content Creator</h6>
+          <h6 style={{ fontSize: "1.4rem" }} className="ml-5 mt-2 p-2">
+            {user?.role}
+          </h6>
           <div className="d-flex gap-5 m-3">
             <div style={{ marginRight: "9rem", marginLeft: "2rem" }}>
               <div className="d-flex gap-5 my-3">
                 <div className="d-flex flex-column justify-content-center align-items-center">
-                  <h4>8</h4>
-                  <p>Subscriptions</p>
+                  <h4>{user?.followingCount}</h4>
+                  <p>Following</p>
                 </div>
                 <div className="d-flex flex-column justify-content-center align-items-center">
-                  <h4>11</h4>
+                  <h4>{user?.followersCount}</h4>
+                  <p>Followers</p>
+                </div>
+                <div className="d-flex flex-column justify-content-center align-items-center">
+                  <h4>{user?.categories?.length}</h4>
                   <p>Topics</p>
                 </div>
               </div>
               <div className="d-flex gap-2">
-                {creator && (
+                {user?.role === "creator" && (
                   <div>
                     <Button
                       type="primary"
@@ -81,15 +111,15 @@ const User = () => {
                     </Button>
                   </div>
                 )}
-                {!creator && (
+                {user?.role === "user" && (
                   <div>
                     <Button
                       type="primary"
                       size={size}
                       shape="round"
-                      // onClick={() => navigate("/admin/add-new-creator")}
+                      onClick={() => dispatch(changeUserRole(id))}
                     >
-                      Make Creator
+                      {isLoading ? "loading..." : "Make Creator"}
                     </Button>
                   </div>
                 )}
@@ -102,123 +132,21 @@ const User = () => {
                 className="d-flex gap-2 p-2"
                 style={{ width: "80%", flexWrap: "wrap" }}
               >
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Inspiration
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Love
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Praise
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Prayer
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Peace
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Heaven
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Self Control
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Faith
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="primary"
-                    shape="round"
-                    style={{
-                      background: "#d3cef5",
-                      color: "#5341BF",
-                      border: "1px solid #d3cef5",
-                    }}
-                  >
-                    Joy
-                  </Button>
-                </div>
+                {user?.categories?.map((cat, i) => (
+                  <div key={i}>
+                    <Button
+                      type="primary"
+                      shape="round"
+                      style={{
+                        background: "#d3cef5",
+                        color: "#5341BF",
+                        border: "1px solid #d3cef5",
+                      }}
+                    >
+                      {cat?.name}
+                    </Button>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

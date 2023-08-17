@@ -12,6 +12,7 @@ import ContentCreator from "./pages/ContentCreator";
 import Posts from "./pages/Posts";
 import User from "./pages/User";
 import Post from "./pages/Post";
+import ApprovedPosts from "./pages/ApprovedPosts";
 
 function App() {
   // role = ["super", "cell-L", "liaison-O", "regional-L"]
@@ -27,6 +28,7 @@ function App() {
             <Route path="all-creators" element={<ContentCreator />} />
             <Route path="add-new-creator" element={<AddCreator />} />
             <Route path="posts" element={<Posts />} />
+            <Route path="appoved-posts" element={<ApprovedPosts />} />
             <Route path="post/:id" element={<Post />} />
             <Route path="user/:id" element={<User />} />
           </Route>

@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 const ProtectedRoute = ({ component: Component, roles, ...rest }) => {
   const location = useLocation();
   const userData = useSelector((state) => state.auth.user);
-
-  const isAuthenticated = userData.email;
+  const token = userData?.data?.token;
+  const isAuthenticated = token;
 
   if (isAuthenticated) {
     return <Outlet />;

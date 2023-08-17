@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import CustomInput from "../components/CustomInput.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../features/auth/authSlice";
+import { login } from "../features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Row } from "antd";
 
@@ -22,35 +22,38 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  role: Yup.string().required("Role is required"),
 });
 
 const Login = () => {
-  const userData = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
+  // Formik state, check doc
   const formik = useFormik({
+    // initial form state
     initialValues: {
-      password: "",
       email: "",
-      role: "",
+      password: "",
     },
-    validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      const { password, email, role } = values;
-      dispatch(loginUser({ password, email, role }));
-      // Reset the form after successful login
-      // resetForm();
+    validationSchema: validationSchema, // to validate the yup setup schema
+    onSubmit: (values) => {
+      // pass the value of the data got from formik to the login action
+      dispatch(login(values));
     },
   });
 
-  useEffect(() => {
-    if (userData.email) {
-      navigate("/admin");
-    }
-  }, [userData]);
+  const authState = useSelector((state) => state);
 
+  const { user, isError, isSuccess, isLoading, message } = authState.auth;
+  const token = user?.data?.token;
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("admin");
+    } else {
+      navigate("/");
+    }
+  }, [user, isError, isSuccess, isLoading]);
+  console.log(token);
   return (
     <Row className="mt-5">
       <Col span={12} offset={6}>

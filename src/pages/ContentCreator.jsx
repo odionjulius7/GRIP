@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { Button, Table } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { IoEnter } from "react-icons/io5";
+import {
+  getCreatorUsers,
+  getUsers,
+  resetState,
+} from "../features/Users/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { useEffect } from "react";
 /* ant design table header */
 const columns = [
   {
@@ -17,7 +25,7 @@ const columns = [
     dataIndex: "email",
   },
   {
-    title: "Subs",
+    title: "Role",
     dataIndex: "subs",
   },
   {
@@ -43,6 +51,45 @@ for (let i = 0; i < 46; i++) {
 }
 
 const ContentCreator = () => {
+  const dispatch = useDispatch();
+  const usersState = useSelector((state) => state.users);
+
+  let data2 = usersState?.creators?.data;
+  data2 = data2?.filter((user) => user?.role === "creator");
+
+  const data = [];
+
+  for (let i = 0; i < data2?.length; i++) {
+    data.push({
+      key: i + 1,
+      name: (
+        <Link
+          style={{
+            fontSize: "1rem",
+            fontWeight: "600",
+          }}
+          className="text-primary"
+          to={`/admin/user/${data2[i].id}`}
+        >
+          {data2[i].username}
+        </Link>
+      ),
+      email: data2[i].email,
+      subs: (
+        <span
+          style={{ color: "#001529", fontSize: "1.1rem", fontWeight: "600" }}
+        >
+          {data2[i].role}
+        </span>
+      ),
+      date: moment(data2[i].createdAt).format("L"),
+    });
+  }
+
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getCreatorUsers());
+  }, []);
   const [size, setSize] = useState("large");
   const navigate = useNavigate();
   return (
@@ -62,7 +109,7 @@ const ContentCreator = () => {
         </div>
       </div>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        <Table columns={columns} dataSource={data} />
       </div>
     </div>
   );

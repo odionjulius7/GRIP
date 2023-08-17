@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoEnter } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers, resetState } from "../features/Users/usersSlice";
-import { getPosts } from "../features/Post/postSlice";
+import { getApprovePosts, getPosts } from "../features/Post/postSlice";
 import moment from "moment";
 /* ant design table header */
 const columns = [
@@ -49,7 +49,7 @@ const columns = [
   },
 ];
 
-const Posts = () => {
+const ApprovedPosts = () => {
   const dispatch = useDispatch();
   const postState = useSelector((state) => state.post);
   const [size, setSize] = useState("large");
@@ -62,8 +62,8 @@ const Posts = () => {
     setbrandId(e);
   };
   //
-  const posts = postState?.posts;
-  // console.log(posts);
+  const posts = postState?.approvedPosts;
+  console.log(posts);
   const data1 = [];
   for (let i = 0; i < posts?.length; i++) {
     data1.push({
@@ -88,7 +88,7 @@ const Posts = () => {
       status: (
         <span
           style={{
-            background: "orangered",
+            background: "green",
             color: "white",
             fontSize: "1rem",
             padding: "0.1rem 0.4rem",
@@ -96,7 +96,7 @@ const Posts = () => {
             borderRadius: "5px",
           }}
         >
-          {!posts[i].status && "Not Approved"}
+          {posts[i].status && "Approved"}
         </span>
       ),
       action: (
@@ -126,11 +126,11 @@ const Posts = () => {
 
   useEffect(() => {
     dispatch(resetState()); // at first render alway clear the state(like loading, success etc)
-    dispatch(getPosts());
+    dispatch(getApprovePosts());
   }, []);
   return (
     <div className="mt-1">
-      <h3 className="mb-3 title">New Posts</h3>
+      <h3 className="mb-3 title">Approved Posts</h3>
       <div>
         <Table columns={columns} dataSource={data1} />
       </div>
@@ -146,4 +146,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default ApprovedPosts;

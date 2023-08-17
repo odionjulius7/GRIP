@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { Column } from "@ant-design/plots";
 import { Avatar, Badge, Card, Dropdown, Space, Switch, Table } from "antd";
+import { BiEdit } from "react-icons/bi";
 import { DownOutlined } from "@ant-design/icons";
 import PieChart from "../components/Charts/PieChart";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsArrowDownRight } from "react-icons/bs";
+import { getUsers, resetState } from "../features/Users/usersSlice";
+import moment from "moment";
+import { getPosts } from "../features/Post/postSlice";
 
 /* ant design table header */
 const columns = [
@@ -32,6 +36,31 @@ const columns = [
   },
 ];
 
+const postColumns = [
+  {
+    title: "SNo",
+    dataIndex: "key",
+  },
+  {
+    title: "Title",
+    dataIndex: "title",
+  },
+
+  {
+    title: "Author",
+    dataIndex: "author",
+  },
+
+  {
+    title: "Date",
+    dataIndex: "date",
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+  },
+];
+
 /* ant design table data */
 const data1 = [];
 for (let i = 0; i < 20; i++) {
@@ -45,8 +74,80 @@ for (let i = 0; i < 20; i++) {
 }
 
 const SuperAdmin = () => {
-  const roleState = useSelector((state) => state.auth);
-  const { role } = roleState.user;
+  const dispatch = useDispatch();
+
+  const postState = useSelector((state) => state.post);
+  const usersState = useSelector((state) => state.users);
+  /* Users Details */
+  let data2 = usersState?.users?.data;
+  data2 = data2?.filter((user) => user?.role === "user");
+
+  const dataHome = [];
+  for (let i = 0; i < data2?.length; i++) {
+    dataHome.push({
+      key: i + 1,
+      name: (
+        <Link
+          style={{
+            fontSize: "1rem",
+            fontWeight: "600",
+          }}
+          className="text-primary"
+          to={`/admin/user/${data2[i].id}`}
+        >
+          {data2[i].username}
+        </Link>
+      ),
+      email: data2[i].email,
+      // subs: `1${i}`,
+      date: moment(data2[i].createdAt).format("L"),
+    });
+  }
+  /* Users Details Ends Here */
+
+  /* Posts Details */
+  const posts = postState?.posts;
+  const postData = [];
+  for (let i = 0; i < posts?.length; i++) {
+    postData.push({
+      key: i + 1,
+      title: (
+        <Link
+          style={{
+            fontSize: "1rem",
+            fontWeight: "600",
+          }}
+          className="text-primary"
+          to={`/admin/post/${posts[i].id}`}
+        >
+          {posts[i].title}
+        </Link>
+      ),
+      // category: `Encouragement, Identity${i}`,
+      author: posts[i]?.User?.username,
+      // views: `11${i}`,
+      // likes: `1${i}`,
+      date: moment(posts[i].createdAt).format("L"),
+      action: (
+        <>
+          <Link to={`/admin/post/${posts[i].id}`} className=" fs-3 text-danger">
+            <BiEdit />
+          </Link>
+          {/* <Link className="ms-3 fs-3 text-danger" onClick={() => showModal(i)}>
+            <AiFillDelete />
+          </Link> */}
+        </>
+      ),
+    });
+  }
+  /* Posts Details Ends Here */
+
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getUsers());
+    dispatch(getPosts());
+  }, []);
+
   /* ant design chart data */
   const data = [
     {
@@ -130,39 +231,9 @@ const SuperAdmin = () => {
     },
   };
 
-  const items = [
-    {
-      key: "1",
-      label: <Link to="/user/1">view user</Link>,
-    },
-    // {
-    //   key: "2",
-    //   // danger: true,
-    //   label: (
-    //     <Space direction="vertical">
-    //       <Switch
-    //         checkedChildren="marked"
-    //         unCheckedChildren="unmarked"
-    //         defaultChecked
-    //       />
-    //     </Space>
-    //   ),
-    // },
-  ];
-  const navigate = useNavigate();
-  useEffect(() => {
-    // role = ["super", "cell-L", "liaison-O", "zonal-L"]
-    if (role === "cell-L") {
-      navigate("/admin/cell");
-    }
-    if (role === "regional-L") {
-      navigate("/admin/region");
-    }
-    if (role === "liaison-O") {
-      navigate("/admin/liaison");
-    }
-  }, []);
-
+  let creatorData = usersState?.users?.data;
+  creatorData = creatorData?.filter((user) => user?.role !== "user");
+  console.log(creatorData);
   return (
     <div>
       <h3 className="mb-4 title">Admin Dashboard </h3>
@@ -172,7 +243,7 @@ const SuperAdmin = () => {
             <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
               <div>
                 <p className="desc">Posts</p>
-                <h4 className="mb-0 sub-title">1100</h4>
+                <h4 className="mb-0 sub-title">{postState?.length}</h4>
               </div>
               <div className="d-flex flex-column align-items-end">
                 <h6>
@@ -198,7 +269,7 @@ const SuperAdmin = () => {
             <div className="d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
               <div>
                 <p className="desc">Users</p>
-                <h4 className="mb-0 sub-title">100</h4>
+                <h4 className="mb-0 sub-title">{data2?.length}</h4>
               </div>
               <div className="d-flex flex-column align-items-end">
                 <h6 className="green">
@@ -221,7 +292,13 @@ const SuperAdmin = () => {
           <div className="mt-5 pt-5">
             <h3 className="mb-3 title">Recent Sign-Ups</h3>
             <div>
-              <Table columns={columns} dataSource={data1} />
+              <Table columns={columns} dataSource={dataHome} />
+            </div>
+          </div>
+          <div className="mt-5 ">
+            <h3 className="mb-2 title">Recent Posts</h3>
+            <div>
+              <Table columns={postColumns} dataSource={postData} />
             </div>
           </div>
         </div>
@@ -231,162 +308,66 @@ const SuperAdmin = () => {
             bordered={false}
             style={{
               width: "100%",
+              background: "#886c6c52",
             }}
           >
             <div className="row" style={{ gap: "1.9rem" }}>
               <div>
                 <h4>Content Creators</h4>
               </div>
-              <div className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1">
-                <Space size={24}>
-                  <Badge dot={false}>
-                    {/* <Avatar
-                      shape="circle"
-                      src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                    /> */}
-                    <FaUserCircle className="imgSvg" />
-                  </Badge>
-                  <div className="d-flex flex-column gap-1">
-                    <h6 className="p-0 m-0">Name:</h6>
-                    <span>Status:</span>
-                  </div>
-                </Space>
-                <div>
-                  <Dropdown menu={{ items }} className="py-1 my-2">
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        CreatorName
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
+              {creatorData?.map((creator, i) => {
+                const items = [
+                  {
+                    key: "1",
+                    label: <Link to={`/admin/user/${creator?.id}`}>view</Link>,
+                  },
+                ];
+                return (
+                  <div
+                    key={i}
+                    className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1"
+                  >
+                    <Space size={24}>
+                      <Badge dot={false}>
+                        {/* <Avatar
+                        shape="circle"
+                        src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
+                      /> */}
+                        <FaUserCircle className="imgSvg" />
+                      </Badge>
+                      <div className="d-flex flex-column gap-1">
+                        <h6 className="p-0 m-0" style={{ fontWeight: "600" }}>
+                          Name:
+                        </h6>
+                        <span>Status:</span>
+                      </div>
+                    </Space>
+                    <div>
+                      <Dropdown menu={{ items }} className="py-1 my-2">
+                        <a
+                          style={{ fontWeight: "600" }}
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          <Space>
+                            {creator?.username}
+                            <DownOutlined />
+                          </Space>
+                        </a>
+                      </Dropdown>
 
-                  {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
-                  <p className=" p-0 m-0">
-                    <em className="text-warning">Creator</em>{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1">
-                <Space size={24}>
-                  <Badge dot={false}>
-                    {/* <Avatar
-                      shape="circle"
-                      src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                    /> */}
-                    <FaUserCircle className="imgSvg" />
-                  </Badge>
-                  <div className="d-flex flex-column gap-1">
-                    <h6 className="p-0 m-0">Name:</h6>
-                    <span>Status:</span>
+                      {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
+                      <p className=" p-0 m-0">
+                        <em
+                          className="text-warning text-white"
+                          style={{ fontWeight: "600" }}
+                        >
+                          Creator
+                        </em>{" "}
+                      </p>
+                    </div>
                   </div>
-                </Space>
-                <div>
-                  <Dropdown menu={{ items }} className="py-1 my-2">
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        CreatorName
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
-
-                  {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
-                  <p className=" p-0 m-0">
-                    <em className="text-warning">Creator</em>{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1">
-                <Space size={24}>
-                  <Badge dot={false}>
-                    {/* <Avatar
-                      shape="circle"
-                      src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                    /> */}
-                    <FaUserCircle className="imgSvg" />
-                  </Badge>
-                  <div className="d-flex flex-column gap-1">
-                    <h6 className="p-0 m-0">Name:</h6>
-                    <span>Status:</span>
-                  </div>
-                </Space>
-                <div>
-                  <Dropdown menu={{ items }} className="py-1 my-2">
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        CreatorName
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
-
-                  {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
-                  <p className=" p-0 m-0">
-                    <em className="text-warning">Creator</em>{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1">
-                <Space size={24}>
-                  <Badge dot={false}>
-                    {/* <Avatar
-                      shape="circle"
-                      src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                    /> */}
-                    <FaUserCircle className="imgSvg" />
-                  </Badge>
-                  <div className="d-flex flex-column gap-1">
-                    <h6 className="p-0 m-0">Name:</h6>
-                    <span>Status:</span>
-                  </div>
-                </Space>
-                <div>
-                  <Dropdown menu={{ items }} className="py-1 my-2">
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        CreatorName
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
-
-                  {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
-                  <p className=" p-0 m-0">
-                    <em className="text-warning">Creator</em>{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex flex-row justify-content-between bg-muted  border-bottom py-1">
-                <Space size={24}>
-                  <Badge dot={false}>
-                    {/* <Avatar
-                      shape="circle"
-                      src="https://stroyka-admin.html.themeforest.scompiler.ru/variants/ltr/images/customers/customer-4-64x64.jpg"
-                    /> */}
-                    <FaUserCircle className="imgSvg" />
-                  </Badge>
-                  <div className="d-flex flex-column gap-1">
-                    <h6 className="p-0 m-0">Name:</h6>
-                    <span>Status:</span>
-                  </div>
-                </Space>
-                <div>
-                  <Dropdown menu={{ items }} className="py-1 my-2">
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        CreatorName
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
-
-                  {/* <p className="text-info p-0 m-0">Mark as leader</p> */}
-                  <p className=" p-0 m-0">
-                    <em className="text-warning">Creator</em>{" "}
-                  </p>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </Card>
           <div className=" mt-4 bg-white pb-2 px-4">
