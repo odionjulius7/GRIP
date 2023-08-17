@@ -110,36 +110,42 @@ main::-webkit-scrollbar {
 }
 
 /*  */
-:where(.css-dev-only-do-not-override-1m62vyb).ant-row {
+/* :where(.css-dev-only-do-not-override-1m62vyb).ant-row {
   position: relative;
   margin: 50px auto;
   height: 600px;
   width: 100vw;
+} */
+:where(.css-dev-only-do-not-override-1m62vyb).ant-row {
+  position: relative !important;
+  margin: 50px auto !important;
+  height: 600px !important;
+  width: 100vw !important;
 }
 :where(.css-dev-only-do-not-override-1m62vyb).ant-row form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: auto;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  padding: 2rem 0;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 60% !important;
+  height: auto !important;
+  background-color: #f0f0f0 !important;
+  border-radius: 10px !important;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3) !important;
+  padding: 2rem 0 !important;
 }
 :where(.css-dev-only-do-not-override-1m62vyb).ant-row form div {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 80% !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 !important;
 }
 
 :where(.css-dev-only-do-not-override-1m62vyb).ant-btn > a {
   color: currentColor;
-  margin-left: 10rem;
+  margin-left: 10rem !important;
 }
 
 :where(
@@ -152,8 +158,8 @@ main::-webkit-scrollbar {
   ).ant-menu-dark.ant-menu-root.ant-menu-vertical,
 :where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
   > .ant-menu.ant-menu-root.ant-menu-vertical {
-  border-inline-end: 0px solid rgba(5, 5, 5, 0.06);
-  margin-top: 3rem;
+  border-inline-end: 0px solid rgba(5, 5, 5, 0.06) !important;
+  margin-top: 3rem !important;
 }
 
 :where(.css-dev-only-do-not-override-1m62vyb).ant-menu
