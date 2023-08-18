@@ -96,11 +96,8 @@ main::-webkit-scrollbar {
   font-size: 12px;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark.ant-menu-inline
-  .ant-menu-item,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
-  > .ant-menu.ant-menu-inline
-  .ant-menu-item {
+.ant-menu-dark.ant-menu-inline .ant-menu-item,
+.ant-menu-dark > .ant-menu.ant-menu-inline .ant-menu-item {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -116,13 +113,13 @@ main::-webkit-scrollbar {
   height: 600px;
   width: 100vw;
 } */
-:where(.css-dev-only-do-not-override-1m62vyb).ant-row {
-  /* position: relative !important;
+.ant-row {
+  position: relative !important;
   margin: 50px auto !important;
   height: 600px !important;
-  width: 100vw !important; */
+  width: 100vw !important;
 }
-/* :where(.css-dev-only-do-not-override-1m62vyb).ant-row form {
+.ant-row form {
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
@@ -134,57 +131,42 @@ main::-webkit-scrollbar {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3) !important;
   padding: 2rem 0 !important;
 }
-:where(.css-dev-only-do-not-override-1m62vyb).ant-row form div {
+.ant-row form div {
   display: flex !important;
   flex-direction: column !important;
   width: 80% !important;
   justify-content: center !important;
   align-items: center !important;
   padding: 0 !important;
-} */
+}
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-btn > a {
+.ant-btn > a {
   color: currentColor;
   margin-left: 10rem !important;
 }
 
-:where(
-    .css-dev-only-do-not-override-1m62vyb
-  ).ant-menu-dark.ant-menu-root.ant-menu-inline,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
-  > .ant-menu.ant-menu-root.ant-menu-inline,
-:where(
-    .css-dev-only-do-not-override-1m62vyb
-  ).ant-menu-dark.ant-menu-root.ant-menu-vertical,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
-  > .ant-menu.ant-menu-root.ant-menu-vertical {
+.ant-menu-dark.ant-menu-root.ant-menu-inline,
+.ant-menu-dark > .ant-menu.ant-menu-root.ant-menu-inline,
+.ant-menu-dark.ant-menu-root.ant-menu-vertical,
+.ant-menu-dark > .ant-menu.ant-menu-root.ant-menu-vertical {
   border-inline-end: 0px solid rgba(5, 5, 5, 0.06) !important;
   margin-top: 3rem !important;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu
-  .ant-menu-item
-  .ant-menu-item-icon,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu
-  .ant-menu-submenu-title
-  .ant-menu-item-icon {
+.ant-menu .ant-menu-item .ant-menu-item-icon,
+.ant-menu .ant-menu-submenu-title .ant-menu-item-icon {
   font-size: 2rem !important;
 }
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
-  .ant-menu-item
-  > .ant-menu-title-content,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
+.ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content,
+.ant-menu-inline.ant-menu-root
   .ant-menu-submenu-title
   > .ant-menu-title-content {
   font-size: 1.3rem;
   font-weight: 700;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark.ant-menu-inline
-  .ant-menu-item,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-dark
-  > .ant-menu.ant-menu-inline
-  .ant-menu-item {
+.ant-menu-dark.ant-menu-inline .ant-menu-item,
+.ant-menu-dark > .ant-menu.ant-menu-inline .ant-menu-item {
   margin-top: 1.8rem;
   margin-bottom: 1.8rem;
 }
@@ -195,9 +177,7 @@ main::-webkit-scrollbar {
   height: 30px;
 }
 
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
-  .ant-menu-item,
-:where(.css-dev-only-do-not-override-1m62vyb).ant-menu-inline.ant-menu-root
-  .ant-menu-submenu-title {
+.ant-menu-inline.ant-menu-root .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
   margin-bottom: 1rem;
 }
