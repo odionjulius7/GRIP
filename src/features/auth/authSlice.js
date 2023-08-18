@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authServices";
+import { toast } from "react-toastify";
 
 // get the user stored data in local storage from set in the authService
 const getUserfromLocalStorage = localStorage.getItem("grip")
@@ -20,6 +21,7 @@ export const login = createAsyncThunk(
     try {
       return await authService.login(userData);
     } catch (error) {
+      toast.error("Failed to login, try again");
       return thunkAPI.rejectWithValue(error);
     }
   }

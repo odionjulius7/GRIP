@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../features/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Col, Row } from "antd";
+import { toast } from "react-toastify";
 
 //
 //
@@ -50,10 +51,17 @@ const Login = () => {
     if (isSuccess) {
       navigate("admin");
     } else {
+      // toast.error("Something Went Wrong!");
       navigate("/");
     }
   }, [user, isError, isSuccess, isLoading]);
-  console.log(token);
+
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error("Something Went Wrong!");
+  //   }
+  // }, [isError]);
+  // console.log(token);
   return (
     <Row
       className="mt-5 one-row"
